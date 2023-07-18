@@ -44,12 +44,6 @@
            bullist numlist outdent indent | removeformat | help',
 							}"
 						/>
-
-						<!-- <input
-							:value="dataEdit.taskName ? dataEdit.taskName : ''"
-							name="taskName"
-							class="w-full border-2 border-gray-300 rounded-xl placeholder: p-2 px-5 outline-none focus:border-blue-400"
-							placeholder="Nhập nội dung..." -->
 					</div>
 				</div>
 				<div class="mb-5 items-center">

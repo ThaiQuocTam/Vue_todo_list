@@ -6,7 +6,7 @@
 				<label class="mr-2 font-medium text-sm">{{ $t("language") }}</label>
 				<select
 					v-model="$i18n.locale"
-					class="text-xs text-gray-500 border-2 cursor-pointer border-gray-200 w-[92px] pr-2 p-2 outline-none focus:border-gray-400 rounded-md focus:border-2"
+					class="text-xs text-gray-500 border-2 cursor-pointer border-gray-200 w-[110px] p-2 outline-none focus:border-gray-400 rounded-md focus:border-2"
 				>
 					<option
 						v-for="locale in $i18n.availableLocales"
