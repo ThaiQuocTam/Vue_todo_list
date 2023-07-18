@@ -1,0 +1,13 @@
+{
+	"addTask": "Add Task",
+	"taskName": "Task name",
+	"status": "Status",
+	"time": "Time",
+	"slogan": "Don't wait until tomorrow to complete it",
+	"addTodo": "Add todo",
+	"btnAdd": "Add",
+	"updateTodo": "Update todo",
+	"btnUpdate": "update",
+	"timeLimit": "Each task should have a minimum duration of 30 minutes",
+	"language": "Language"
+}

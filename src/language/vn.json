@@ -1,0 +1,13 @@
+{
+	"addTask": "Thêm việc",
+	"taskName": "Tên việc",
+	"status": "Trạng thái",
+	"time": "Thời gian",
+	"slogan": "Đừng để đến ngày mai hoàn thành",
+	"addTodo": "Thêm việc việc",
+	"btnAdd": "Thêm",
+	"updateTodo": "Cập nhập công việc",
+	"btnUpdate": "Cập nhật",
+	"timeLimit": "Mỗi công việc phải có thời gian ít nhất 30p' thực hiện",
+	"language": "Ngôn ngữ"
+}

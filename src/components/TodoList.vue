@@ -2,12 +2,30 @@
 	<div class="flex w-full justify-center pt-[80px] h-screen">
 		<!-- container -->
 		<div class="w-2/3 bg-white p-14 rounded-xl max-h-[80%] overflow-auto">
+			<div class="w-full text-right">
+				<label class="mr-2 font-medium text-sm">{{ $t("language") }}</label>
+				<select
+					v-model="$i18n.locale"
+					class="text-xs text-gray-500 border-2 cursor-pointer border-gray-200 w-[92px] pr-2 p-2 outline-none focus:border-gray-400 rounded-md focus:border-2"
+				>
+					<option
+						v-for="locale in $i18n.availableLocales"
+						:key="`locale-${locale}`"
+						:value="locale"
+					>
+						{{ locale }}
+					</option>
+				</select>
+			</div>
+
 			<!-- head -->
 			<div class="w-full justify-center">
 				<div class="my-5 text-left">
 					<h3 class="uppercase text-4xl font-black">Todo list</h3>
 					<span class="italic text-gray-600 mt-[3px]"
-						>"Don't wait until tomorrow to complete it."</span
+						>"
+						{{ $t("slogan") }}
+						"</span
 					>
 				</div>
 				<div class="text-right my-5">
@@ -15,7 +33,7 @@
 						@click="handleAddTask"
 						class="border-2 hover:text-blue-700 hover:border-blue-700 py-2 px-7 rounded-lg border-blue-400 text-blue-400"
 					>
-						Add Task
+						{{ $t("addTask") }}
 					</button>
 				</div>
 			</div>
@@ -33,28 +51,24 @@
 							<th
 								class="w-[390px] font-semibold text-gray-500 text-lg text-center p-3"
 							>
-								Task Name
+								{{ $t("taskName") }}
 							</th>
 							<th
 								class="w-[150px] font-semibold text-gray-500 text-lg text-center p-3"
 							>
-								Status
+								{{ $t("status") }}
 							</th>
 							<th
 								class="w-[140px] font-semibold text-gray-500 text-lg text-center p-3"
 							>
-								Time
+								{{ $t("time") }}
 							</th>
 							<th
 								class="w-[53px] font-semibold text-gray-500 text-lg text-center p-3"
-							>
-								Edit
-							</th>
+							></th>
 							<th
 								class="w-[53px] font-semibold text-gray-500 text-lg text-center p-3"
-							>
-								Remove
-							</th>
+							></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -105,7 +119,7 @@
 									handelEditTask(item);
 									isShow = true;
 								"
-								class="p-3 text-2xl text-center text-blue-400 cursor-pointer hover:text-blue-600 relative"
+								class="p-3 text-2xl text-center text-blue-500 cursor-pointer hover:text-blue-600 relative"
 							>
 								<i class="bi bi-wrench-adjustable-circle-fill"></i>
 							</td>

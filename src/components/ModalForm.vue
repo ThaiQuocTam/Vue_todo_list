@@ -11,14 +11,16 @@
 		</div>
 		<div class="text-center my-5 text-2xl font-black">
 			<h3>
-				{{ dataEdit.taskName !== "" ? "Update Todo" : "Add Todo" }}
+				{{ dataEdit.taskName !== "" ? $t("updateTodo") : $t("addTodo") }}
 			</h3>
 		</div>
 		<div>
 			<form @submit.prevent="handleSubmit" class="">
 				<div class="mb-5 items-center h-[230px] overflow-hidden">
 					<div class="w-full mb-2 flex items-center">
-						<label class="font-semibold text-lg italic">Task name:</label>
+						<label class="font-semibold text-lg italic"
+							>{{ $t("taskName") }}:</label
+						>
 					</div>
 					<div class="w-full h-[182px] flex items-start relative">
 						<editor
@@ -52,7 +54,9 @@
 				</div>
 				<div class="mb-5 items-center">
 					<div class="w-full flex items-center mb-2">
-						<label class="font-semibold text-lg italic">Time:</label>
+						<label class="font-semibold text-lg italic"
+							>{{ $t("time") }}:</label
+						>
 					</div>
 					<div class="w-fullitems-center">
 						<input
@@ -63,7 +67,7 @@
 							class="w-full border-2 cursor-pointer border-gray-300 text-slate-500 text-base rounded-xl placeholder: p-2 px-5 outline-none focus:border-blue-400"
 						/>
 						<span class="text-gray-500 text-xs mt-1"
-							>(Each task should have a minimum duration of 30 minutes)</span
+							>({{ $t("timeLimit") }})</span
 						>
 					</div>
 				</div>
@@ -72,13 +76,13 @@
 						class="border-2 hover:text-blue-700 hover:border-blue-700 py-2 px-12 rounded-lg border-blue-400 text-blue-400"
 						v-if="!dataEdit.taskName"
 					>
-						Add
+						{{ $t("btnAdd") }}
 					</button>
 					<button
 						class="border-2 hover:text-yellow-700 hover:border-yellow-700 py-2 px-12 rounded-lg border-yellow-400 text-yellow-400"
 						v-else
 					>
-						Update
+						{{ $t("btnUpdate") }}
 					</button>
 				</div>
 			</form>
