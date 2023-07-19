@@ -91,12 +91,12 @@
 
 	export default {
 		name: "ModalForm",
-		props: ["propsDataEdit", "propsGetData", "closeModal"],
+		props: ["propsDataUpdate", "propsGetData", "closeModal"],
 		components: {
 			editor: Editor,
 		},
 		watch: {
-			propsDataEdit(newVL) {
+			propsDataUpdate(newVL) {
 				(this.content = newVL.taskName),
 					(this.dataEdit = {
 						taskName: newVL.taskName,

@@ -80,14 +80,16 @@
 							class="w-full border-b-2 border-gray-200"
 						>
 							<td class="p-3 text-xs lg:text-sm lg:w-auto text-center">
-								{{ (indexTodo = index + 1) }}
+								{{ (count = index + 1) }}
 							</td>
 							<td
-								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
+								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex lg:min-w-[300px] max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
 							>
 								{{ item.taskName }}
 							</td>
-							<td class="p-3 text-xs lg:text-sm w-auto text-center">
+							<td
+								class="p-3 text-xs lg:text-sm w-auto text-center min-w-50px max-w-100px"
+							>
 								<div
 									v-if="item.status === 'Completed'"
 									class="text-green-600 italic py-2 border border-green-600 rounded-md"
@@ -153,7 +155,7 @@
 		>
 			<ModalForm
 				v-bind:closeModal="handleCloseModal"
-				v-bind:propsDataEdit="dataEdit"
+				v-bind:propsDataUpdate="dataEdit"
 				v-bind:propsGetData="getData"
 			/>
 		</div>
@@ -183,7 +185,7 @@
 					time: "",
 					status: "",
 				},
-				indexTodo: 0,
+				count: 0,
 			};
 		},
 		methods: {
@@ -233,7 +235,6 @@
 					this.dataLocal.forEach((item) => {
 						if (item.status === "In Progress") {
 							const dueTime = moment(item.time, "YYYY-MM-DD HH:mm");
-							console.log(dueTime.toString());
 							const alertTime = dueTime.clone().subtract(30, "minutes");
 							if (moment().isAfter(alertTime)) {
 								toast.warning(
@@ -261,12 +262,10 @@
 				const newArr = [];
 				this.dataLocal.forEach((item, indexItem) => {
 					if (indexItem === index) {
-						console.log("haha");
 						item.status = "Completed";
 					}
 					newArr.push(item);
 				});
-				console.log(newArr);
 				localStorage.setItem("todoList", JSON.stringify([...newArr]));
 				toast.success(this.$t("toastCompleted"), {
 					autoClose: 1500,
