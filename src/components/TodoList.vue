@@ -41,50 +41,50 @@
 				</div>
 			</div>
 			<!-- body -->
-			<div class="w-full">
+			<div class="w-full overflow-auto">
 				<!-- table -->
-				<table class="w-full lg:table block">
-					<thead class="lg:table-header-group block overflow-auto">
+				<table class="w-full">
+					<thead class="">
 						<tr class="w-full border-b-2 border-gray-600">
 							<th
-								class="lg:w-[50px] w-[5%] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[50px] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
 							>
 								#
 							</th>
 							<th
-								class="lg:w-[390px ] w-[40%] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[390px ] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
 							>
 								{{ $t("taskName") }}
 							</th>
 							<th
-								class="lg:w-[150px ] w-[15%] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[150px ] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
 							>
 								{{ $t("status") }}
 							</th>
 							<th
-								class="lg:w-[140px ] w-[15%] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[140px ] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
 							>
 								{{ $t("time") }}
 							</th>
 							<th
-								class="lg:w-[53px] w-[12%] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[53px] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
 							></th>
 							<th
-								class="lg:w-[53px] w-[13%] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[53px] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
 							></th>
 						</tr>
 					</thead>
-					<tbody class="lg:table-header-group block w-full overflow-auto">
+					<tbody class="">
 						<tr
 							v-for="(item, index) in dataLocal"
 							:key="item"
 							class="w-full border-b-2 border-gray-200"
 						>
-							<td class="p-3 text-xs w-[5%] lg:text-sm lg:w-auto text-center">
+							<td class="p-3 text-xs lg:text-sm lg:w-auto text-center">
 								{{ (indexTodo = index + 1) }}
 							</td>
 							<td
-								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex h-[83px] h-auto max-h-20 overflow-auto justify-center items-center py-1"
+								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex h-[83px] max-h-20 overflow-auto justify-center items-center py-1"
 							>
 								{{ item.taskName }}
 							</td>
