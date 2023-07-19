@@ -83,7 +83,7 @@
 								{{ (indexTodo = index + 1) }}
 							</td>
 							<td
-								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex h-[83px] max-h-20 overflow-auto justify-center items-center py-1"
+								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
 							>
 								{{ item.taskName }}
 							</td>
