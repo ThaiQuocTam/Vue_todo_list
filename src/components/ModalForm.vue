@@ -67,7 +67,7 @@
 				</div>
 				<div class="w-full text-right">
 					<button
-						class="border-2 hover:text-blue-700 hover:border-blue-700 py-2 px-12 rounded-lg border-blue-400 text-blue-400"
+						class="border-2 hover:text-blue-700 hover:border-blue-700 py-2 px-12 lg:w-auto w-full rounded-lg border-blue-400 text-blue-400"
 						v-if="!dataEdit.taskName"
 					>
 						{{ $t("btnAdd") }}
@@ -136,7 +136,7 @@
 						this.content,
 						"text/html"
 					);
-					let taskName = parsedDocument.body.textContent;
+					let taskName = parsedDocument.body.textContent.trim();
 					let time = e.target.time.value;
 					if (taskName && time) {
 						const todo = {
@@ -151,7 +151,7 @@
 								(item) => item.taskName === taskName
 							);
 							if (checkTodo) {
-								toast.warning("Task name already exists", {
+								toast.warning(this.$t("toastExistTaskName"), {
 									autoClose: "1500",
 								});
 							} else {
@@ -159,20 +159,20 @@
 									"todoList",
 									JSON.stringify([...arrTodoList, todo])
 								);
-								toast.success("Add success", {
+								toast.success(this.$t("toastAddSuccess"), {
 									autoClose: "1500",
 								});
+								this.content = "";
 							}
 						} else {
 							localStorage.setItem("todoList", JSON.stringify([todo]));
 						}
 					} else {
-						toast.warning("Please enter data", {
+						toast.warning(this.$t("toastVerify"), {
 							autoClose: 1500,
 						});
 					}
 					this.propsGetData();
-					this.content = "";
 				} catch (e) {
 					console.log(e);
 				}
@@ -196,7 +196,7 @@
 								return item.taskName !== taskName;
 							});
 							if (!checkTaskName) {
-								toast.warning("Task name already exists", {
+								toast.warning(this.$t("toastExistTaskName"), {
 									autoClose: 1500,
 								});
 							} else {
@@ -207,24 +207,31 @@
 										return;
 									}
 								});
-								toast.success("Update success", { autoClose: 1500 });
+								toast.success(this.$t("toastUpdateSuccess"), {
+									autoClose: 1500,
+								});
+								this.closeModal();
 							}
 							localStorage.setItem(
 								"todoList",
 								JSON.stringify([...dataLocalStore])
 							);
 						} else {
-							toast.warning("Please enter data", {
+							toast.warning(this.$t("toastVerify"), {
 								autoClose: 1500,
 							});
 						}
+					} else {
+						toast.warning(this.$t("toastVerify"), {
+							autoClose: 1500,
+						});
 					}
-					this.propsGetData();
 				} catch (e) {
 					toast.warning("Error", {
 						autoClose: 1500,
 					});
 				}
+				this.propsGetData();
 			},
 			handleSubmit(e) {
 				if (!this.dataEdit.taskName) this.addTask(e);

@@ -9,5 +9,16 @@
 	"updateTodo": "Update todo",
 	"btnUpdate": "update",
 	"timeLimit": "Each task should have a minimum duration of 30 minutes",
-	"language": "Language"
+	"language": "Language",
+
+	"toastInProgress": "In Progress",
+	"toastCompleted": "Completed",
+	"toastNotCompleted": "Not Completed",
+	"toastExistTaskName": "Task name already exists",
+	"toastVerify": "Please enter data",
+	"toastAddSuccess": "Add success",
+	"toastUpdateSuccess": "Update success",
+	"toastDeleteSuccess": "Delete success",
+	"toastWarning": "Warning",
+	"toastTimeUp": "approaching the deadline"
 }

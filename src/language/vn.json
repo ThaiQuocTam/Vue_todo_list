@@ -4,10 +4,21 @@
 	"status": "Trạng thái",
 	"time": "Thời gian",
 	"slogan": "Đừng để đến ngày mai hoàn thành",
-	"addTodo": "Thêm việc việc",
+	"addTodo": "Thêm công việc",
 	"btnAdd": "Thêm",
 	"updateTodo": "Cập nhập công việc",
 	"btnUpdate": "Cập nhật",
 	"timeLimit": "Mỗi công việc phải có thời gian ít nhất 30p' thực hiện",
-	"language": "Ngôn ngữ"
+	"language": "Ngôn ngữ",
+
+	"toastInProgress": "Trong quá trình",
+	"toastCompleted": "Đã hoàn thành",
+	"toastNotCompleted": "Chưa hoàn thành",
+	"toastExistTaskName": "Công việc đã tồn tại",
+	"toastVerify": "Vui lòng nhập dữ liệu",
+	"toastAddSuccess": "Thêm thành công",
+	"toastUpdateSuccess": "Cập nhật thành công",
+	"toastDeleteSuccess": "Xóa thành công",
+	"toastWarning": "Cảnh báo",
+	"toastTimeUp": "sắp hết thời gian"
 }
