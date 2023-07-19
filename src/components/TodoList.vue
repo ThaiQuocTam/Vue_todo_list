@@ -24,7 +24,6 @@
 					<h3 class="uppercase lg:text-4xl md:text-xl text-lg font-black">
 						Todo list
 					</h3>
-					<span class="lg:hidden block">ádádasdasdasa</span>
 					<span class="italic text-gray-600 mt-[3px] lg:text-base text-xs"
 						>"
 						{{ $t("slogan") }}
