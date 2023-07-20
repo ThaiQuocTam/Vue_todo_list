@@ -1,21 +1,25 @@
 <template>
 	<div
-		@click="handleClick"
+		@click="handleClickStopEvent"
 		class="w-2/3 bg-white max-h-[72%] mt-[80px] rounded-xl items-center px-10 pt-5 animate-modalForm relative overflow-auto pb-2"
 	>
 		<div
-			@click="closeModal"
+			@click="propsCloseModal"
 			class="absolute top-[8px] right-5 text-2xl cursor-pointer text-red-600 hover:text-red-500"
 		>
 			<i class="bi bi-dash-circle-fill"></i>
 		</div>
 		<div class="text-center my-5 text-2xl font-black">
 			<h3>
-				{{ dataEdit.taskName !== "" ? $t("updateTodo") : $t("addTodo") }}
+				{{
+					dataTodoUpdate && dataTodoUpdate.taskName !== ""
+						? $t("updateTodo")
+						: $t("addTodo")
+				}}
 			</h3>
 		</div>
 		<div>
-			<form @submit.prevent="handleSubmit" class="">
+			<form @submit.prevent="handleSubmitTodo" class="">
 				<div class="mb-5 items-center h-[230px] overflow-hidden">
 					<div class="w-full mb-2 flex items-center">
 						<label class="font-semibold text-lg italic"
@@ -25,8 +29,8 @@
 					<div class="w-full h-[182px] flex items-start relative">
 						<editor
 							name="taskName"
-							v-model="content"
-							textareaName="content"
+							v-model="contentTaskName"
+							textareaName="contentTaskName"
 							api-key="no-api-key"
 							@input="onChangeTaskName"
 							:init="{
@@ -56,8 +60,8 @@
 						<input
 							name="time"
 							type="datetime-local"
-							:min="dataEdit.time ? dataEdit.time : minDateTime"
-							:value="dataEdit.time ? dataEdit.time : minDateTime"
+							:min="dataTodoUpdate.time ? dataTodoUpdate.time : minDateTime"
+							:value="dataTodoUpdate.time ? dataTodoUpdate.time : minDateTime"
 							class="w-full border-2 cursor-pointer border-gray-300 text-slate-500 text-base rounded-xl placeholder: p-2 px-5 outline-none focus:border-blue-400"
 						/>
 						<span class="text-gray-500 text-xs mt-1"
@@ -68,7 +72,7 @@
 				<div class="w-full text-right">
 					<button
 						class="border-2 hover:text-blue-700 hover:border-blue-700 py-2 px-12 lg:w-auto w-full rounded-lg border-blue-400 text-blue-400"
-						v-if="!dataEdit.taskName"
+						v-if="!dataTodoUpdate.taskName"
 					>
 						{{ $t("btnAdd") }}
 					</button>
@@ -91,33 +95,23 @@
 
 	export default {
 		name: "ModalForm",
-		props: ["propsDataUpdate", "propsGetData", "closeModal"],
+		props: ["propsDataUpdate", "propsGetData", "propsCloseModal"],
 		components: {
 			editor: Editor,
-		},
-		watch: {
-			propsDataUpdate(newVL) {
-				(this.content = newVL.taskName),
-					(this.dataEdit = {
-						taskName: newVL.taskName,
-						time: newVL.time,
-						status: newVL.status,
-					});
-			},
 		},
 		data() {
 			return {
 				minDateTime: "",
-				content: "",
-				dataEdit: {},
+				contentTaskName: "",
+				dataTodoUpdate: {},
 			};
 		},
 		methods: {
-			handleClick(event) {
+			handleClickStopEvent(event) {
 				event.stopPropagation();
 			},
 			onChangeTaskName(value) {
-				this.content = value;
+				this.contentTaskName = value;
 			},
 			getDate() {
 				const currentDate = new Date();
@@ -129,11 +123,11 @@
 				const minutes = String(currentDate.getMinutes()).padStart(2, "0");
 				this.minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
 			},
-			addTask(e) {
+			addTodo(e) {
 				try {
 					const parser = new DOMParser();
 					const parsedDocument = parser.parseFromString(
-						this.content,
+						this.contentTaskName,
 						"text/html"
 					);
 					let taskName = parsedDocument.body.textContent.trim();
@@ -162,7 +156,7 @@
 								toast.success(this.$t("toastAddSuccess"), {
 									autoClose: "1500",
 								});
-								this.content = "";
+								this.contentTaskName = "";
 							}
 						} else {
 							localStorage.setItem("todoList", JSON.stringify([todo]));
@@ -177,11 +171,11 @@
 					console.log(e);
 				}
 			},
-			editTask(e, indexTodo) {
+			updateTodo(e, indexTodo) {
 				try {
 					const parser = new DOMParser();
 					const parsedDocument = parser.parseFromString(
-						this.content,
+						this.contentTaskName,
 						"text/html"
 					);
 					let taskName = parsedDocument.body.textContent;
@@ -210,7 +204,7 @@
 								toast.success(this.$t("toastUpdateSuccess"), {
 									autoClose: 1500,
 								});
-								this.closeModal();
+								this.propsCloseModal();
 							}
 							localStorage.setItem(
 								"todoList",
@@ -233,20 +227,29 @@
 				}
 				this.propsGetData();
 			},
-			handleSubmit(e) {
-				if (!this.dataEdit.taskName) this.addTask(e);
+			handleSubmitTodo(e) {
+				if (!this.dataTodoUpdate.taskName) this.addTodo(e);
 				else {
 					let indexTodo;
 					const dataLocalStore = JSON.parse(localStorage.getItem("todoList"));
 					dataLocalStore.forEach((item, index) => {
-						if (item.taskName === this.dataEdit.taskName) indexTodo = index;
+						if (item.taskName === this.dataTodoUpdate.taskName)
+							indexTodo = index;
 					});
-					this.editTask(e, indexTodo);
+					this.updateTodo(e, indexTodo);
 				}
 			},
 		},
 		mounted() {
 			this.getDate();
+			if (this.propsDataUpdate) {
+				this.contentTaskName = this.propsDataUpdate.taskName;
+				this.dataTodoUpdate = {
+					taskName: this.propsDataUpdate.taskName,
+					time: this.propsDataUpdate.time,
+					status: this.propsDataUpdate.status,
+				};
+			}
 		},
 	};
 </script>

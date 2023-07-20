@@ -106,7 +106,7 @@
 										class="cursor-pointer"
 										v-if="item.status === 'In Progress'"
 										v-show="true"
-										@click="handleChecked(index)"
+										@click="handleCheckedCompleted(index)"
 										type="checkbox"
 									/>
 								</div>
@@ -123,10 +123,7 @@
 							</td>
 							<td
 								v-if="item.status === 'In Progress'"
-								@click="
-									handelEditTask(item);
-									isShow = true;
-								"
+								@click="handleUpdateTodo(item)"
 								class="p-3 lg:text-2xl text-base text-center text-blue-500 cursor-pointer hover:text-blue-600 relative"
 							>
 								<i class="bi bi-wrench-adjustable-circle-fill"></i>
@@ -150,12 +147,12 @@
 			</div>
 		</div>
 		<div
-			v-show="isShow"
+			v-if="isShowModalForm"
 			class="absolute inset-0 flex justify-center bg-[#0f0f128a]"
 		>
 			<ModalForm
-				v-bind:closeModal="handleCloseModal"
-				v-bind:propsDataUpdate="dataEdit"
+				v-bind:propsCloseModal="handleCloseModalForm"
+				v-bind:propsDataUpdate="dataTodoUpdate"
 				v-bind:propsGetData="getData"
 			/>
 		</div>
@@ -176,11 +173,11 @@
 
 		data() {
 			return {
-				isShow: false,
-				isToastShow: false,
+				isShowModalForm: false,
+				isShowToast: false,
 				dataLocal: [],
 				moment: moment,
-				dataEdit: {
+				dataTodoUpdate: {
 					taskName: "",
 					time: "",
 					status: "",
@@ -189,49 +186,47 @@
 			};
 		},
 		methods: {
-			handleClick(event) {
-				event.stopPropagation();
-			},
-			handleCloseModal() {
-				this.isShow = false;
+			handleCloseModalForm() {
+				this.isShowModalForm = false;
 			},
 			handleAddTask() {
-				this.dataEdit = { taskName: "", time: "", status: "" };
-				this.isShow = true;
+				this.dataTodoUpdate = { taskName: "", time: "", status: "" };
+				this.isShowModalForm = true;
 			},
 			getData() {
-				const listData = JSON.parse(localStorage.getItem("todoList"));
-				if (listData) this.dataLocal = [...listData];
-				this.render();
+				const listDataTodoLocal = JSON.parse(localStorage.getItem("todoList"));
+				if (listDataTodoLocal) this.dataLocal = [...listDataTodoLocal];
+				this.checkTimeTodoLimit();
 			},
 			handleDeleteTask(taskName) {
 				const dataLocal = JSON.parse(localStorage.getItem("todoList"));
-				const newArr = [];
+				const newArrTodo = [];
 				if (dataLocal) {
 					dataLocal.forEach((item) => {
-						if (item.taskName !== taskName) newArr.push(item);
+						if (item.taskName !== taskName) newArrTodo.push(item);
 					});
-					localStorage.setItem("todoList", JSON.stringify([...newArr]));
+					localStorage.setItem("todoList", JSON.stringify([...newArrTodo]));
 					toast.success(this.$t("toastDeleteSuccess"), {
 						autoClose: 1500,
 					});
 				}
 				this.getData();
 			},
-			handelEditTask(data) {
-				this.dataEdit = {
+			handleUpdateTodo(data) {
+				this.dataTodoUpdate = {
 					taskName: data.taskName,
 					time: data.time,
 					status: data.status,
 				};
+				this.isShowModalForm = true;
 			},
 			updateTodoLocalStore() {
-				const newArr = [];
-				this.dataLocal.forEach((item) => newArr.push(item));
-				localStorage.setItem("todoList", JSON.stringify([...newArr]));
+				const newArrTodo = [];
+				this.dataLocal.forEach((item) => newArrTodo.push(item));
+				localStorage.setItem("todoList", JSON.stringify([...newArrTodo]));
 			},
-			render() {
-				if (!this.isToastShow && this.dataLocal.length !== 0) {
+			checkTimeTodoLimit() {
+				if (!this.isShowToast && this.dataLocal.length !== 0) {
 					this.dataLocal.forEach((item) => {
 						if (item.status === "In Progress") {
 							const dueTime = moment(item.time, "YYYY-MM-DD HH:mm");
@@ -252,21 +247,21 @@
 							}
 						}
 					});
-					this.isToastShow = true;
+					this.isShowToast = true;
 					setTimeout(() => {
-						this.isToastShow = false;
+						this.isShowToast = false;
 					}, 1000 * 30);
 				}
 			},
-			handleChecked(index) {
-				const newArr = [];
+			handleCheckedCompleted(index) {
+				const newArrTodo = [];
 				this.dataLocal.forEach((item, indexItem) => {
 					if (indexItem === index) {
 						item.status = "Completed";
 					}
-					newArr.push(item);
+					newArrTodo.push(item);
 				});
-				localStorage.setItem("todoList", JSON.stringify([...newArr]));
+				localStorage.setItem("todoList", JSON.stringify([...newArrTodo]));
 				toast.success(this.$t("toastCompleted"), {
 					autoClose: 1500,
 				});
@@ -277,9 +272,8 @@
 			try {
 				this.getData();
 				setInterval(() => {
-					this.render();
+					this.checkTimeTodoLimit();
 				}, 1000);
-				this.render();
 			} catch (error) {
 				console.log(error);
 			}
