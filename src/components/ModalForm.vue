@@ -1,7 +1,7 @@
 <template>
 	<div
 		@click="handleClickStopEvent"
-		class="w-2/3 bg-white max-h-[72%] mt-[80px] rounded-xl items-center px-10 pt-5 animate-modalForm relative overflow-auto pb-2"
+		class="md:w-2/3 w-full bg-white max-h-[72%] mt-[80px] rounded-xl items-center px-10 pt-5 animate-modalForm relative overflow-auto pb-2"
 	>
 		<div
 			@click="propsCloseModal"

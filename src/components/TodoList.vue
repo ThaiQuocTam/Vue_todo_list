@@ -1,7 +1,9 @@
 <template>
-	<div class="flex w-full justify-center pt-[80px] h-screen">
+	<div class="flex px-5 w-full justify-center pt-[80px] h-screen">
 		<!-- container -->
-		<div class="w-2/3 bg-white p-14 rounded-xl max-h-[80%] overflow-auto">
+		<div
+			class="md:w-2/3 w-full bg-white md:p-14 p-5 rounded-xl max-h-[80%] overflow-auto"
+		>
 			<div class="w-full text-right">
 				<label class="mr-2 font-medium text-sm">{{ $t("language") }}</label>
 				<select
@@ -33,7 +35,7 @@
 				<div class="text-right my-5">
 					<button
 						@click="handleAddTask"
-						class="border-2 hover:text-blue-700 hover:border-blue-700 sm:w-auto w-full py-2 px-7 rounded-lg border-blue-400 text-blue-400"
+						class="border-2 hover:text-blue-700 hover:border-blue-700 w-auto py-2 px-7 rounded-lg border-blue-400 text-blue-400"
 					>
 						{{ $t("addTask") }}
 					</button>
@@ -46,30 +48,30 @@
 					<thead class="">
 						<tr class="w-full border-b-2 border-gray-600">
 							<th
-								class="w-[50px] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[50px] font-semibold text-gray-500 text-sm md:text-lg text-[12px] text-center p-3"
 							>
 								#
 							</th>
 							<th
-								class="w-[390px ] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[390px ] font-semibold text-gray-500 text-sm md:text-lg text-[12px] text-center p-3"
 							>
 								{{ $t("taskName") }}
 							</th>
 							<th
-								class="w-[150px ] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[150px ] font-semibold text-gray-500 text-sm md:text-lg text-[12px] text-center p-3"
 							>
 								{{ $t("status") }}
 							</th>
 							<th
-								class="w-[140px ] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[140px ] font-semibold text-gray-500 text-sm md:text-lg text-[12px] text-center p-3"
 							>
 								{{ $t("time") }}
 							</th>
 							<th
-								class="w-[53px] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[53px] font-semibold text-gray-500 text-sm md:text-lg text-[12px] text-center p-3"
 							></th>
 							<th
-								class="w-[53px] font-semibold text-gray-500 text-sm lg:text-lg text-center p-3"
+								class="w-[53px] font-semibold text-gray-500 text-sm md:text-lg text-[12px] text-center p-3"
 							></th>
 						</tr>
 					</thead>
@@ -79,16 +81,18 @@
 							:key="item"
 							class="w-full border-b-2 border-gray-200"
 						>
-							<td class="p-3 text-xs lg:text-sm lg:w-auto text-center">
+							<td
+								class="p-3 text-xs md:text-sm text-[11px] lg:w-auto text-center"
+							>
 								{{ (count = index + 1) }}
 							</td>
 							<td
-								class="p-3 text-xs lg:text-sm text-center lg:w-auto flex lg:min-w-[300px] max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
+								class="p-3 text-xs md:text-sm text-[11px] text-center lg:w-auto flex lg:min-w-[300px] max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
 							>
 								{{ item.taskName }}
 							</td>
 							<td
-								class="p-3 text-xs lg:text-sm w-auto text-center min-w-50px max-w-100px"
+								class="p-3 text-xs md:text-sm text-[11px] w-auto text-center min-w-50px max-w-100px"
 							>
 								<div
 									v-if="item.status === 'Completed'"
@@ -118,7 +122,7 @@
 									<i class="bi bi-exclamation-triangle-fill"></i>
 								</div>
 							</td>
-							<td class="p-3 lg:text-sm text-xs text-center">
+							<td class="p-3 md:text-sm text-[11px] text-xs text-center">
 								{{ moment(item.time).format("DD/MM/YYYY - HH:mm") }}
 							</td>
 							<td
@@ -148,7 +152,7 @@
 		</div>
 		<div
 			v-if="isShowModalForm"
-			class="absolute inset-0 flex justify-center bg-[#0f0f128a]"
+			class="absolute inset-0 flex justify-center bg-[#0f0f128a] px-3"
 		>
 			<ModalForm
 				v-bind:propsCloseModal="handleCloseModalForm"
