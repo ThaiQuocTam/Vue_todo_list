@@ -87,7 +87,7 @@
 								{{ (count = index + 1) }}
 							</td>
 							<td
-								class="p-3 text-xs md:text-sm text-[11px] text-center lg:w-auto flex lg:min-w-[300px] max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
+								class="p-3 text-xs md:text-sm text-[11px] text-center lg:w-auto flex md:min-w-[300px] min-w-[225px] max-w-[400px] h-[83px] max-h-24 lg:max-h-20 overflow-auto justify-center items-center py-1"
 							>
 								{{ item.taskName }}
 							</td>
